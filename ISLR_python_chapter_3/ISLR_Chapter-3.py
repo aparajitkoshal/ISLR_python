@@ -52,20 +52,18 @@ est2 = est.fit()
 print(est2.summary())
 
 ##Confidence Interval
+##We have y we needed yhat, now we can evaluate mean values and standard deviations
+##Still searching how to exceute
 
-y.
-
-z_critical = stats.norm.ppf(q = 0.975)  # Get the z-critical value*
-
-print("z-critical value:")              # Check the z-critical value
-print(z_critical)                        
-
-pop_stdev = population_ages.std()  # Get the population standard deviation
-
-margin_of_error = z_critical * (pop_stdev/math.sqrt(sample_size))
-
-confidence_interval = (sample_mean - margin_of_error,
-                       sample_mean + margin_of_error)  
-
-print("Confidence interval:")
-print(confidence_interval)
+###Multiple linear regression
+y=np.asarray(boston['medv'])
+y.shape
+x=np.asarray(boston[['lstat','age']])##Please note that there is two dimensional list function used
+x.shape##returns a pandas dataframe and not a series
+regression = LinearRegression()
+regression.fit(x,y)
+##As can be seen from the ISLR, the results for regression are similar
+print('The estimated equation of the regression line is: {} + {} * x1 +{} * x2'.format(regression.intercept_,regression.coef_[0], regression.coef_[1]))
+regression_line = lambda x: regression.intercept_ + regression.coef_[0] * x + regression.coef_[1] * x
+R_square=regression.score(x,y)
+print('R square value is {}'.format(R_square))
